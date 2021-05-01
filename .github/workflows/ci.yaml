@@ -1,0 +1,21 @@
+name: ci
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup python
+        uses: actions/setup-python@v2
+
+      - name: Install prospector
+        run: pip install prospector
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run prospector
+        run: prospector
