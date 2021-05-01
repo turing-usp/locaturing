@@ -6,7 +6,4 @@ def teste_hello():
 
 
 if __name__ == "__main__":
-    """
-    Main function.
-    """
     teste_hello()
