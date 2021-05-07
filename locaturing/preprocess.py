@@ -65,11 +65,3 @@ df_preprocess=df2[['budget','overview','title','director','author','keywords_lis
 
 # lidando com dados faltantes em author
 df_preprocess['author'] = df_preprocess['author'].apply(lambda x : x if str(x) != 'nan' else "")
-
-
-
-print(df_preprocess.columns)
-
-print(df_preprocess.info())
-
-print(df_preprocess.columns)
