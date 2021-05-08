@@ -1,9 +1,13 @@
 from preprocess import df_preprocess
 import pandas as pd
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import warnings
+warnings.filterwarnings("ignore")
 
 
-def create_soup(x,pesos=[1,1,1,1,0]):
-    '''
+def create_soup(x, pesos=(1, 1, 1, 1, 0)):
+    """
     Funcao que cria a string para cada filme, cada um dos argumentos em pesos define quantas vezes cada uma das features
     vao aparecer nessa composicao de string
     peso0=director
@@ -11,19 +15,20 @@ def create_soup(x,pesos=[1,1,1,1,0]):
     peso2=lista de genero
     peso3=lista de cast principal
     peso4=lista de companias envolvidas
-    '''
+    """
     return ' '.join(pesos[1]*x['keywords_list']) + ' ' + \
-    ' '.join(pesos[2]*x['genres_list']) + ' ' + ' '.join(pesos[3]*x['cast_list']) + ' '.join(pesos[4]*x['companies_list']) + " "+ pesos[0] * (x['director'] + ' ')
+    ' '.join(pesos[2]*x['genres_list']) + ' ' + ' '.join(pesos[3]*x['cast_list']) + ' '.join(pesos[4]*x['companies_list']) + \
+           " "+ pesos[0] * (x['director'] + ' ')
+
+
 
 df_preprocess['soup'] = df_preprocess.apply(create_soup, axis=1)
 
 df_preprocess['soup'] = df_preprocess['soup'].apply(lambda x : " ".join(x.split()))
 
 # Criacao do bag of words com o countvectorizer do sklearn
-from sklearn.feature_extraction.text import CountVectorizer
 count = CountVectorizer(stop_words='english')
 count_matrix = count.fit_transform(df_preprocess['soup'])
-from sklearn.metrics.pairwise import cosine_similarity
 cosine_sim2 = cosine_similarity(count_matrix, count_matrix)
 
 df_preprocess = df_preprocess.reset_index()
@@ -50,4 +55,3 @@ def get_recommendations(title, cosine_sim=cosine_sim2):
 
 
 print(get_recommendations('The Godfather'))
-
