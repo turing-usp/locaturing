@@ -24,7 +24,7 @@ def _create_soup_str(df: pd.DataFrame, columns: List[str],
     for peso, column in zip(pesos, columns):
         column_value = peso*df[column]
         if isinstance(df[column].iloc[0], list):
-            column_value = ' '.join(peso*df[column])
+            column_value = df[column].apply(lambda row:' '.join(peso*row))
         final_string += column_value + ' '
     return final_string
 
