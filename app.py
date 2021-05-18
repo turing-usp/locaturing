@@ -3,7 +3,7 @@ import pandas as pd
 
 from typing import List
 from locaturing.preprocess import preprocess, merge_dataframes
-from locaturing.modeling import create_soup, create_model, get_recommendations_filtered, reset_df_index, get_recommendations
+from locaturing.modeling import create_soup, create_model, get_recommendations_filtered, reset_df_index
 
 @st.cache(allow_output_mutation=True)
 def load_dataframe() -> pd.DataFrame:
@@ -65,5 +65,12 @@ movie_dataframe_final, cosine_sim, indices = train_model(movie_dataframe)
 
 
 st.dataframe(
-    movie_dataframe.merge(get_recommendations_filtered(movie_dataframe_final, movie_option, cosine_sim, indices,genre_option), how='inner', left_on='title', right_on='title')
+    movie_dataframe.merge(
+        get_recommendations_filtered(
+            movie_dataframe_final, 
+            movie_option, 
+            cosine_sim, 
+            indices,genre_option
+        ), how='inner', left_on='title', right_on='title'
+    )
 )
