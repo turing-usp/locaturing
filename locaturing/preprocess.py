@@ -1,6 +1,6 @@
 import json
 from typing import List
-from locaturing.dataset import get_dataframe, get_dataframe_local
+from locaturing.dataset import get_dataframe_local
 import numpy as np
 import pandas as pd
 

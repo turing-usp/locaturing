@@ -150,5 +150,3 @@ def get_recommendations_filtered(df: pd.DataFrame, title: str,
 
     # Return the top 10 most similar movies
     return df['title'].iloc[movie_indices]
-
-
