@@ -11,6 +11,9 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v2
 
+      - name: Install poetry
+        run: pip install poetry
+        
       - name: Install dependencies
         run: poetry install
 
