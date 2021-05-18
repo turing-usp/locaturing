@@ -3,7 +3,7 @@ import pandas as pd
 
 from typing import List
 from locaturing.preprocess import preprocess, merge_dataframes
-from locaturing.modeling import create_soup, create_model, reset_df_index, get_recommendations
+from locaturing.modeling import create_soup, create_model, get_recommendations_filtered, reset_df_index, get_recommendations
 
 @st.cache(allow_output_mutation=True)
 def load_dataframe() -> pd.DataFrame:
@@ -36,15 +36,34 @@ def train_model(dataframe: pd.DataFrame) -> List[List[float]]:
     df_final, indices = reset_df_index(dataframe_soup)
     return df_final, cosine_sim, indices
 
-movie_dataframe = load_dataframe()
-movie_dataframe_final, cosine_sim, indices = train_model(movie_dataframe)
 
 st.title(":popcorn: Locaturing :popcorn:")
 st.write("Modelo de recomendação content-based feito pelo Turing-USP")
+
+movie_dataframe = load_dataframe()
+movie_dataframe_final, cosine_sim, indices = train_model(movie_dataframe)
+
+
+
+genre_column = list(movie_dataframe['genres_list'])
+flat_genre = [item for sublist in genre_column for item in sublist]
+unique_genres = pd.Series(flat_genre).unique()
+
+
 movie_option = st.selectbox(
     label='Selecione um filme!',
     options=movie_dataframe['title'].tolist()
 )
+
+genre_option = st.selectbox(
+    label='Selecione um gênero',
+    options=unique_genres.tolist()
+)
+
+movie_dataframe_final, cosine_sim, indices = train_model(movie_dataframe)
+
+
+
 st.dataframe(
-    movie_dataframe.merge(get_recommendations(movie_dataframe_final, movie_option, cosine_sim, indices), how='inner', left_on='title', right_on='title')
+    movie_dataframe.merge(get_recommendations_filtered(movie_dataframe_final, movie_option, cosine_sim, indices,genre_option), how='inner', left_on='title', right_on='title')
 )
