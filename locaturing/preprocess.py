@@ -1,6 +1,6 @@
 import json
 from typing import List
-from locaturing.dataset import get_dataframe
+from locaturing.dataset import get_dataframe_local
 import numpy as np
 import pandas as pd
 
@@ -53,8 +53,8 @@ def merge_dataframes(df1_name: str, df2_name: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: dataframe mergeado
     """
-    df1 = get_dataframe(df1_name)
-    df2 = get_dataframe(df2_name)
+    df1 = get_dataframe_local(df1_name)
+    df2 = get_dataframe_local(df2_name)
 
     df2.drop(['homepage'], axis=1,inplace=True)
     df1.columns = ['id','tittle','cast','crew']
