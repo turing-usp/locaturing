@@ -15,6 +15,7 @@ prospector = "^1.3.1"
 dash = "^1.20.0"
 dash-bootstrap-components = "^0.12.2"
 dash-trich-components = "^0.0.9"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 

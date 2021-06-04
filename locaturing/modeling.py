@@ -29,7 +29,7 @@ def _create_soup_str(df: pd.DataFrame, columns: List[str],
     return final_string
 
 
-def create_soup(df: pd.DataFrame) -> pd.DataFrame:
+def create_soup(df: pd.DataFrame, pesos=(1, 1, 1, 1, 0)) -> pd.DataFrame:
     """
     Cria a coluna de soup para predição
 
@@ -42,7 +42,8 @@ def create_soup(df: pd.DataFrame) -> pd.DataFrame:
     df['soup'] = _create_soup_str(
         df,
         ['director', 'keywords_list', 'genres_list', \
-        'cast_list', 'companies_list']
+        'cast_list', 'companies_list'],
+        pesos
     )
 
     df['soup'] = df['soup'].apply(lambda x : " ".join(x.split()))
