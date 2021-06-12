@@ -121,7 +121,7 @@
       "FARGATE"
     ],
     "networkMode": "awsvpc",
-    "cpu": "256",
+    "cpu": "512",
     "revision": 1,
     "status": "ACTIVE",
     "inferenceAccelerators": null,
