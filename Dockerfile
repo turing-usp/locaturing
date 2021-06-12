@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 
 COPY . /locaturing
 
-CMD gunicorn app:server -b :8000 -t 30 --workers=1 --threads=1
+CMD gunicorn app:server -b :8000 -t 90 --workers=1 --threads=1
