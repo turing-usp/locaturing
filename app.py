@@ -23,5 +23,9 @@ create_modal_callback(app)
 app.layout = layout
 server = app.server
 
+@server.route('/')
+def create_root():
+    return "Ok!"
+
 if __name__ == '__main__':
     app.run_server(debug=True)
