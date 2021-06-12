@@ -71,11 +71,14 @@ layout = html.Div([
             dbc.ModalHeader("Locaturing"),
             dbc.ModalBody([html.P("""
                     O Locaturing é um projeto da área de Data Science do Turing.USP que tem como objetivo a criação de uma 
-                    ferramenta que recomenda filmes com base na escolha do usuário por um título conhecido.
+                    ferramenta que recomenda filmes com base na escolha do usuário por um título conhecido. Nela você pode inserir um filme de seu gosto 
+                    e receber 8 recomendações. É possível também selecionar os filmes com base no gênero, de modo a encontrar a melhor recomendação para 
+                    cada momento. 
                 """),
                 html.P("""
                     A técnica usada até o momento consiste me uma recomendação content based, 
-                    na qual escolhe-se os filmes que apresentam features mais semelhantes com as features do filme indicado pelo usuário.
+                    na qual escolhe-se os filmes que apresentam características mais semelhantes com as características do filme indicado pelo usuário. Além disso, a 
+                    aplicação permite que o usuário altere a importância que cada característica do filme é considerada para as recomendações. 
                 """),
                 html.P("""
                     Para o deploy utilizamos a biblioteca Dash, biblioteca para criar fronts focados em Dados de maneira simples.
