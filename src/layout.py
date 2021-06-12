@@ -48,24 +48,35 @@ layout = html.Div([
             step=1,
             value=0,
         ),
-    ]),
+    ], bg_color="#dc3545"),
     dbc.Row([
         dbc.Col(
             html.H1(
                 "Locaturing", 
                 className='display-1', 
-                style={'text-align': 'center'}
+                style={'text-align': 'center', 'font-family': "Fantasy"},
             ), 
             width={'size':6, 'offset':3}, 
-            style={'padding-top':'2em'}
+            style={'padding-top':'2em', 'font-family': "Fantasy"}
         )
     ]),
+    html.Br(),
     dbc.Row([
         dbc.Col(
-            dbc.Button("Como funciona?", id="open-modal", block=True), 
-            width={'size':6, 'offset':3}, 
-        )
+            dbc.Button("Como funciona?", id="open-modal", block=True, color="danger"), 
+            width={'size':6, 'offset':3},
+            # style={"background-color": "#4CAF50",
+            # "border": "none",
+            # "color": "white",
+            # "padding": "15px 32px",
+            # "text-align": "center",
+            # "text-decoration": "none",
+            # "display": "inline-block",
+            # "font-size": "16px",
+            # "background-image": "none"}
+        ),
     ]),
+    html.Br(),
     dbc.Modal(
         [
             dbc.ModalHeader("Locaturing"),
@@ -91,6 +102,7 @@ layout = html.Div([
         id="modal",
         size='xl'
     ),
+    html.Br(),
     dbc.Row([
         dbc.Col(
             dbc.Select(
@@ -118,6 +130,7 @@ layout = html.Div([
             style={'padding-top':'2em'}
         )
     ]),
+    html.Br(),
     dbc.Spinner([
         dtc.Carousel(
             id='movie-carousel',
@@ -137,5 +150,5 @@ layout = html.Div([
     ],
         color='warning',
         type='grow'
-    )  
+    )
 ])
