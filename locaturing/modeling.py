@@ -29,7 +29,7 @@ def _create_soup_str(df: pd.DataFrame, columns: List[str],
     return final_string
 
 
-def create_soup(df: pd.DataFrame) -> pd.DataFrame:
+def create_soup(df: pd.DataFrame, pesos=(1, 1, 1, 1, 0)) -> pd.DataFrame:
     """
     Cria a coluna de soup para predição
 
@@ -42,7 +42,8 @@ def create_soup(df: pd.DataFrame) -> pd.DataFrame:
     df['soup'] = _create_soup_str(
         df,
         ['director', 'keywords_list', 'genres_list', \
-        'cast_list', 'companies_list']
+        'cast_list', 'companies_list'],
+        pesos
     )
 
     df['soup'] = df['soup'].apply(lambda x : " ".join(x.split()))
@@ -113,11 +114,17 @@ def get_recommendations(df: pd.DataFrame, title: str,
     movie_indices = [i[0] for i in sim_scores]
 
     # Return the top 10 most similar movies
-    return df['title'].iloc[movie_indices]
+    titles = df['title'].iloc[movie_indices]
+    return df.query('title in @titles')
 
 
-def get_recommendations_filtered(df: pd.DataFrame, title: str,
-    cosine_sim: List[List[float]], indices: pd.Series, genre: str) -> List[str]:
+def get_recommendations_filtered(
+    df: pd.DataFrame, 
+    title: str,
+    cosine_sim: List[List[float]], 
+    indices: pd.Series, 
+    genre: str
+) -> List[str]:
     """
     Faz a recomendação baseada na similaridade de cosseno da coluna coup
 
@@ -132,21 +139,15 @@ def get_recommendations_filtered(df: pd.DataFrame, title: str,
     """
     # Get the index of the movie that matches the title
     idx = indices[title]
-
     # Get the pairwsie similarity scores of all movies with that movie
     sim_scores = list(enumerate(cosine_sim[idx]))
-
-
-    genre_scores = [i for i in sim_scores if df['genres_list'][i[0]].count(genre)]
-
+    genre_scores = [i for i in sim_scores if genre in df['genres_list'].iloc[i[0]]]
     # Sort the movies based on the similarity scores
     genre_scores = sorted(genre_scores, key=lambda x: x[1], reverse=True)
-
     # Get the scores of the 10 most similar movies
     genre_scores = genre_scores[1:11]
-
     # Get the movie indices
     movie_indices = [i[0] for i in genre_scores]
-
     # Return the top 10 most similar movies
-    return df['title'].iloc[movie_indices]
+    titles = df['title'].iloc[movie_indices]
+    return df.query('title in @titles')
