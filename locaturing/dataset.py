@@ -3,7 +3,7 @@ import boto3
 import pandas as pd
 
 
-def get_dataframe(df_name: str) -> pd.DataFrame:
+def get_dataframe_local(df_name: str) -> pd.DataFrame:
     """
     Coleta um dataframe de um bucket do s3.
 
@@ -19,7 +19,7 @@ def get_dataframe(df_name: str) -> pd.DataFrame:
     df_raw = pd.read_csv(response['Body'])
     return df_raw
 
-def get_dataframe_local(df_name: str) -> pd.DataFrame:
+def get_dataframe(df_name: str) -> pd.DataFrame:
     """
     Coleta um dataframe de uma pasta local.
 

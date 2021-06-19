@@ -18,15 +18,16 @@ def create_recommendation_callback(app):
         Input('genres-weight', 'value'),
         Input('cast-weight', 'value'),
         Input('companies-weight', 'value'),
+        Input('overview-weight', 'value'),
         prevent_initial_call=True
     )
     def create_carousel_components(
         movie_select, genre_select, director_weight, 
-        keywords_weight, genres_weight, cast_weight, companies_weight
+        keywords_weight, genres_weight, cast_weight, companies_weight, overview_weight
     ):
         weight_tuple = (
             director_weight, keywords_weight, 
-            genres_weight, cast_weight, companies_weight
+            genres_weight, cast_weight, companies_weight, overview_weight
         )
         movie_df, df_final, cosine_sim, indices = create_model_vars(df1 = 'tmdb_5000_credits.csv', df2 = 'tmdb_5000_movies.csv', weights=weight_tuple)
         if genre_select:

@@ -48,6 +48,14 @@ layout = html.Div([
             step=1,
             value=0,
         ),
+        dtc.SideBarItem(id='overview-label', label="Peso da Sinopse", icon="fas fa-book"),
+        dcc.Slider(
+            id='overview-weight',
+            min=0,
+            max=5,
+            step=1,
+            value=1,
+        ),
     ], bg_color="#dc3545"),
     dbc.Row([
         dbc.Col(
